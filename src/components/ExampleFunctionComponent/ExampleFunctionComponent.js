@@ -1,5 +1,5 @@
 import React from 'react'
-import usePrevious from "../../hooks/usePrevious";
+import usePrevious from '../../hooks/usePrevious'
 
 function Example(props) {
     const [count, setCount] = React.useState(0)
@@ -22,7 +22,7 @@ function Example(props) {
     }, [])
 
     React.useEffect(() => {
-        console.log('componentDidUpdate hook', {prevCount, count})
+        console.log('componentDidUpdate hook', { prevCount, count })
     }, [prevCount, count])
 
     const handleClick = React.useCallback(() => {
@@ -31,11 +31,13 @@ function Example(props) {
 
     console.log('render', { ref })
 
-    return <div ref={ref} className="bordered">
-        <p>Example - {props.text}</p>
-        <p>Counter - {count}</p>
-        <button onClick={handleClick}>+1</button>
-    </div>
+    return (
+        <div ref={ref} className="bordered">
+            <p>Example - {props.text}</p>
+            <p>Counter - {count}</p>
+            <button onClick={handleClick}>+1</button>
+        </div>
+    )
 }
 
 export default Example
