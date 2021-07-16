@@ -1,6 +1,22 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default class ExampleClass extends React.Component {
+    static propTypes = {
+        text: PropTypes.string.isRequired,
+        text1: PropTypes.string,
+    }
+
+    static defaultProps = {
+        text1: 'Empty Text 1',
+    }
+
+    static Sizes = {
+        s: '11',
+        m: '14',
+        l: '21',
+    }
+
     constructor(props) {
         super(props)
 
@@ -42,7 +58,10 @@ export default class ExampleClass extends React.Component {
 
         return (
             <div className="bordered">
-                <p>Example Class Component - {this.props.text}</p>
+                <p>
+                    Example Class Component - {this.props.text},{' '}
+                    {this.props.text1}
+                </p>
                 <p>Counter - {this.state.count}</p>
                 <button onClick={this.handleClick}>+1</button>
             </div>
