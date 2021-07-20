@@ -1,93 +1,37 @@
 import React from 'react'
-import TextField from '@material-ui/core/TextField'
-import usePrevious from '../../hooks/usePrevious'
-import Message from '../Message/Message'
-import { AUTHORS } from './constants'
 import './App.css'
-
-/**
- * <div> -> <img>
- * <div class="123"> -> <div class="234">
- * <MyComponent> -> componentDidUpdate
- * <ul>
- *     <li key="fsf"/>
- *     <li key="hfjgj"/>
- *     <li key="wetwt"/>
- *     <li key="xbxb"/>
- *  </ul>
- *
- * */
+import Chat from '../Chats/ChatItem'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
 
 function App() {
-    const [messageList, setMessageList] = React.useState([])
-    const [inputValue, setInputValue] = React.useState('')
+    const [chats, setChats] = React.useState([
+        { id: 'chat1', name: 'Чат 1' },
+        { id: 'chat2', name: 'Чат 2' },
+        { id: 'chat3', name: 'Чат 3' },
+    ])
+    const [currentChat, setCurrentChat] = React.useState(chats[0])
 
-    const timer = React.useRef(null)
-
-    const prevMessageList = usePrevious(messageList)
-
-    React.useEffect(() => {
-        if (
-            prevMessageList?.length < messageList.length &&
-            messageList[messageList.length - 1].author !== AUTHORS.BOT
-        ) {
-            timer.current = setTimeout(
-                () =>
-                    setMessageList((currentMessageList) => [
-                        ...currentMessageList,
-                        { author: AUTHORS.BOT, text: 'Привет' },
-                    ]),
-                1500
-            )
-        }
-    }, [messageList, prevMessageList])
-
-    React.useEffect(() => {
-        return () => {
-            clearTimeout(timer.current)
-        }
-    }, [])
-
-    const handleMessageChange = (e) => {
-        setInputValue(e.target.value)
-    }
-
-    const handleMessageSubmit = (e) => {
-        e.preventDefault()
-
-        setMessageList((currentMessageList) => [
-            ...currentMessageList,
-            { author: AUTHORS.ME, text: inputValue },
-        ])
-        setInputValue('')
-    }
+    const handleChangeChat = (chat) => setCurrentChat(chat)
 
     return (
-        <div className="app">
-            <div className="bordered">
-                {messageList.map((message, index) => (
-                    <Message
-                        key={index}
-                        text={message.text}
-                        author={message.author}
-                    />
+        <div className="app app__content app__content_row">
+            <List className="app__sidebar" subheader="Список чатов">
+                {chats.map((chat) => (
+                    <ListItem
+                        button
+                        key={chat.id}
+                        selected={chat.id === currentChat.id}
+                        onClick={() => handleChangeChat(chat)}
+                    >
+                        {chat.name}
+                    </ListItem>
                 ))}
-            </div>
+            </List>
 
-            <form className="app__form bordered" onSubmit={handleMessageSubmit}>
-                <TextField
-                    fullWidth
-                    required
-                    autoFocus
-                    className="child__text-field bordered"
-                    variant="outlined"
-                    label="Сообщение"
-                    placeholder="Введите сообщение"
-                    value={inputValue}
-                    onChange={handleMessageChange}
-                />
-                <button>Отправить</button>
-            </form>
+            <div className="app__main">
+                <Chat id={currentChat.id} />
+            </div>
         </div>
     )
 }
