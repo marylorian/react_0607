@@ -1,34 +1,54 @@
 import React from 'react'
 import { Switch, Route } from 'react-router'
-import { Link } from 'react-router-dom'
 import '../App/App.css'
-import App from '../App/App'
 import Chat from '../Chat/Chat'
+import Home from '../Home'
+import Chats from '../Chats/Chats'
 
-export default function Router() {
+export default function Router(props) {
     return (
-        <div>
-            <div className="bordered">
-                <Link to="/">Home</Link>
-                <Link to="/chats">Chats</Link>
-                <Link to="/profile">Profile</Link>
-            </div>
+        <Switch>
+            <Route
+                path="/"
+                exact
+                render={() => (
+                    <Home
+                        chats={props.chats}
+                        currentChat={props.currentChat}
+                        onCurrentChatChange={props.onCurrentChatChange}
+                    />
+                )}
+            />
 
-            <Switch>
-                <Route path="/" exact component={App} />
+            <Route
+                exact
+                path="/chats"
+                render={() => (
+                    <Chats
+                        chats={props.chats}
+                        currentChat={props.currentChat}
+                        onCurrentChatChange={props.onCurrentChatChange}
+                        getIsChatExists={props.getIsChatExists}
+                        onAddChat={props.onAddChat}
+                        onRemoveChat={props.onRemoveChat}
+                    />
+                )}
+            />
 
-                <Route exact path="/chats" render={() => <p>Chats page</p>} />
+            <Route
+                path="/chats/:chatId"
+                render={() => {
+                    return <Chat getIsChatExists={props.getIsChatExists} />
+                }}
+            />
 
-                <Route path="/chats/:chatId" render={() => <Chat />} />
+            <Route path="/profile">
+                <p>Profile page</p>
+            </Route>
 
-                <Route path="/profile">
-                    <p>Profile page</p>
-                </Route>
-
-                <Route>
-                    <p>404: not found</p>
-                </Route>
-            </Switch>
-        </div>
+            <Route>
+                <p>404: not found</p>
+            </Route>
+        </Switch>
     )
 }

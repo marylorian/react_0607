@@ -1,8 +1,7 @@
 import React from 'react'
 import './App.css'
-import Chat from '../Chats/ChatItem'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
+import Router from '../Router/Router'
+import { Link } from 'react-router-dom'
 
 function App() {
     const [chats, setChats] = React.useState([
@@ -14,26 +13,61 @@ function App() {
 
     const handleChangeChat = (chat) => setCurrentChat(chat)
 
-    return (
-        <div className="app app__content app__content_row">
-            <List className="app__sidebar" subheader="Список чатов">
-                {chats.map((chat) => (
-                    <ListItem
-                        button
-                        key={chat.id}
-                        selected={chat.id === currentChat.id}
-                        onClick={() => handleChangeChat(chat)}
-                    >
-                        {chat.name}
-                    </ListItem>
-                ))}
-            </List>
+    const handleAddChat = (chatName) => {
+        setChats((currentChats) => [
+            ...currentChats,
+            { name: chatName, id: `chat${Date.now()}` },
+        ])
+    }
 
-            <div className="app__main">
-                <Chat id={currentChat.id} />
+    const handleRemoveChat = (chatId) => {
+        setChats((currentChats) =>
+            currentChats.filter((chat) => chat.id !== chatId)
+        )
+    }
+
+    const handleIsChatExists = React.useCallback(
+        (chatId) => {
+            return Boolean(chats.find((chat) => chat.id === chatId))
+        },
+        [chats]
+    )
+
+    return (
+        <div className="app">
+            <div className="header bordered">
+                <Link to="/">Home</Link>
+                <Link to="/chats">Chats</Link>
+                <Link to="/profile">Profile</Link>
             </div>
+
+            <Router
+                chats={chats}
+                currentChat={currentChat}
+                onCurrentChatChange={handleChangeChat}
+                getIsChatExists={handleIsChatExists}
+                onAddChat={handleAddChat}
+                onRemoveChat={handleRemoveChat}
+            />
         </div>
     )
 }
 
 export default App
+
+/**
+ * было
+ * Router
+ *  - App <- chats
+ *  - Chats
+ *  - Chat <- isExists
+ *  - Profile
+ *
+ * стало
+ * App <- chats, currentChat, setChats, setCurrentChat, isExists
+ *  Router <- chats, currentChat, setChats, setCurrentChat, isExists // propsDrilling
+ *      - Home <- chats, setCurrentChat
+ *      - Chats <- chats
+ *      - Chat <- isExists(chatId)
+ *      - Profile
+ * */
