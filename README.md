@@ -4,7 +4,9 @@
 - Урок 2: https://github.com/marylorian/react_0607/pull/1 (коммит https://github.com/marylorian/react_0607/pull/1/commits/c200e2dae5b9b363f2f6df4a268ef75cd8fa8b7c)
 - Урок 3: https://github.com/marylorian/react_0607/pull/2 (коммит https://github.com/marylorian/react_0607/pull/2/commits/8828074f9484f322aa3de45c349d427b777ab782)
 - Урок 4: https://github.com/marylorian/react_0607/pull/3 (коммит https://github.com/marylorian/react_0607/pull/3/commits/e67ce6d669d81bf6a3375344cf340b4de2657920)
-- 
+- Урок 5: https://github.com/marylorian/react_0607/pull/4 
+  1. коммит с материалом урока https://github.com/marylorian/react_0607/pull/4/commits/c7ef47784f786b4fddc89407c985708f67cf02db
+  2. коммит с разбором дз https://github.com/marylorian/react_0607/pull/4/commits/344c5bad7397ff963b480b050bcb6a2de1e9b889
 
 ## Не стесняйтесь выгрузить код с занятия и попробовать его менять у себя локально. Сделать это можно следующим образом:
 
