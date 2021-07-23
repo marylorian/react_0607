@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Message from '../Message/Message'
 import Input from '../Input/Input'
 import { AUTHORS } from '../App/constants'
 import usePrevious from '../../hooks/usePrevious'
+import { ChatContext } from '../App/App'
 
 const Chat = (props) => {
     const [messageList, setMessageList] = React.useState([])
+
+    const { chatId } = useContext(ChatContext)
+    console.log({ chatId })
 
     const timer = React.useRef(null)
 
