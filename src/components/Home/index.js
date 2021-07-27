@@ -1,16 +1,19 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { changeName } from '../../actions/profile'
 import Input from '../Input/Input'
+import { bindActionCreators } from 'redux'
+import { profileNameSelector, profileSelector } from '../../selectors/profile'
 
 function Home(props) {
+    // const { age = 0, name = 'Unknown', onChangeProfileName } = props
+
     const dispatch = useDispatch()
-    const { name, age } = useSelector((state) => state.profile)
+    const { name, age } = useSelector(profileSelector)
 
     const handleNameSubmit = (newName) => {
-        console.log('call action with ', newName)
-
         dispatch(changeName(newName))
+        // onChangeProfileName(newName)
     }
 
     return (
@@ -31,4 +34,15 @@ function Home(props) {
     )
 }
 
-export default Home
+const mapStateToProps = (globalState) => {
+    return profileSelector(globalState)
+}
+const mapDispatchToProps = (dispatch) =>
+    bindActionCreators(
+        {
+            onChangeProfileName: changeName,
+        },
+        dispatch
+    )
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button'
 
 const Input = (props) => {
     const { onSubmit } = props
+    const inputRef = React.useRef(null)
 
     const [inputValue, setInputValue] = React.useState('')
 
@@ -17,6 +18,7 @@ const Input = (props) => {
         if (onSubmit) {
             onSubmit(inputValue)
             setInputValue('')
+            setTimeout(() => inputRef.current?.focus(), 200)
         }
     }
 
@@ -26,6 +28,7 @@ const Input = (props) => {
                 fullWidth
                 required
                 autoFocus
+                innerRef={inputRef}
                 className="child__text-field bordered"
                 variant="outlined"
                 label="Сообщение"
@@ -33,7 +36,7 @@ const Input = (props) => {
                 value={inputValue}
                 onChange={handleChange}
             />
-            <Button type="submit" variant="outlined">
+            <Button type="submit" variant="outlined" tabIndex={-1}>
                 Отправить
             </Button>
         </form>
