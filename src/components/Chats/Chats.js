@@ -1,10 +1,11 @@
 import React from 'react'
+import { useHistory } from 'react-router'
 import ListItem from '@material-ui/core/ListItem'
 import List from '@material-ui/core/List'
-import './styles.css'
-import { useHistory } from 'react-router'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
 import Input from '../Input/Input'
-import { Button } from '@material-ui/core'
+import './styles.css'
 
 export default function Chats(props) {
     const {
@@ -23,28 +24,32 @@ export default function Chats(props) {
 
     return (
         <div className="chats">
-            <div className="chats__sidebar">
-                <List className="app__sidebar" subheader={<p>Список чатов</p>}>
-                    {chats.map((chat) => (
-                        <div style={{ display: 'flex' }}>
-                            <ListItem
-                                button
-                                component="a"
-                                key={chat.id}
-                                selected={chat.id === currentChat.id}
-                                onClick={() => handleChatLinkClick(chat)}
-                            >
-                                {chat.name}
-                            </ListItem>
-                            <Button onClick={() => onRemoveChat(chat.id)}>
-                                Удалить
-                            </Button>
-                        </div>
-                    ))}
-                </List>
-            </div>
+            <List className="chats__sidebar" subheader={<p>Список чатов</p>}>
+                {chats.map((chat) => (
+                    <div className="chats__sidebar__item" key={chat.id}>
+                        <ListItem
+                            button
+                            component="a"
+                            selected={chat.id === currentChat.id}
+                            onClick={() => handleChatLinkClick(chat)}
+                        >
+                            {chat.name}
+                        </ListItem>
+                        <IconButton
+                            variant="contained"
+                            onClick={() => onRemoveChat(chat.id)}
+                        >
+                            <DeleteIcon />
+                        </IconButton>
+                    </div>
+                ))}
+            </List>
 
-            <Input onSubmit={onAddChat} />
+            <Input
+                label="Имя чата"
+                placeholder="Введите имя чата"
+                onSubmit={onAddChat}
+            />
         </div>
     )
 }

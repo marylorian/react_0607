@@ -35,7 +35,7 @@ function App() {
 
     return (
         <div className="app">
-            <div className="header bordered">
+            <div className="header">
                 <Link to="/">Home</Link>
                 <Link to="/chats">Chats</Link>
                 <Link to="/profile">Profile</Link>
@@ -54,20 +54,3 @@ function App() {
 }
 
 export default App
-
-/**
- * было
- * Router
- *  - App <- chats
- *  - Chats
- *  - Chat <- isExists
- *  - Profile
- *
- * стало
- * App <- chats, currentChat, setChats, setCurrentChat, isExists
- *  Router <- chats, currentChat, setChats, setCurrentChat, isExists // propsDrilling
- *      - Home <- chats, setCurrentChat
- *      - Chats <- chats
- *      - Chat <- isExists(chatId)
- *      - Profile
- * */

@@ -3,7 +3,7 @@ import { connect, useDispatch, useSelector } from 'react-redux'
 import { changeName } from '../../actions/profile'
 import Input from '../Input/Input'
 import { bindActionCreators } from 'redux'
-import { profileNameSelector, profileSelector } from '../../selectors/profile'
+import { profileSelector } from '../../selectors/profile'
 
 function Home(props) {
     // const { age = 0, name = 'Unknown', onChangeProfileName } = props
@@ -29,7 +29,11 @@ function Home(props) {
                 </p>
             </div>
 
-            <Input onSubmit={handleNameSubmit} />
+            <Input
+                label="Имя"
+                placeholder="Введите новое имя"
+                onSubmit={handleNameSubmit}
+            />
         </div>
     )
 }
