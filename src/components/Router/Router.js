@@ -4,6 +4,7 @@ import '../App/App.css'
 import Chat from '../Chat/Chat'
 import Home from '../Home'
 import Chats from '../Chats/Chats'
+import Profile from '../Profile/Profile'
 
 export default function Router(props) {
     return (
@@ -43,7 +44,7 @@ export default function Router(props) {
             />
 
             <Route path="/profile">
-                <p>Profile page</p>
+                <Profile />
             </Route>
 
             <Route>

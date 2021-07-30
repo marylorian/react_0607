@@ -1,9 +1,15 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+import SendIcon from '@material-ui/icons/Send'
+import IconButton from '@material-ui/core/IconButton'
 
 const Input = (props) => {
-    const { onSubmit } = props
+    const {
+        label = 'Сообщение',
+        placeholder = 'Введите сообщение',
+        onSubmit,
+    } = props
+    const inputRef = React.useRef(null)
 
     const [inputValue, setInputValue] = React.useState('')
 
@@ -17,6 +23,7 @@ const Input = (props) => {
         if (onSubmit) {
             onSubmit(inputValue)
             setInputValue('')
+            setTimeout(() => inputRef.current?.focus(), 200)
         }
     }
 
@@ -26,16 +33,22 @@ const Input = (props) => {
                 fullWidth
                 required
                 autoFocus
+                innerRef={inputRef}
                 className="child__text-field bordered"
                 variant="outlined"
-                label="Сообщение"
-                placeholder="Введите сообщение"
+                label={label}
+                placeholder={placeholder}
                 value={inputValue}
                 onChange={handleChange}
             />
-            <Button type="submit" variant="outlined">
-                Отправить
-            </Button>
+            <IconButton
+                type="submit"
+                variant="contained"
+                tabIndex={-1}
+                title="Отправить"
+            >
+                <SendIcon />
+            </IconButton>
         </form>
     )
 }

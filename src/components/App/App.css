@@ -79,6 +79,30 @@ a:hover {
   opacity: 0.5;
 }
 
+.header {
+  display: flex;
+  padding: 8px;
+  width: 100%;
+  box-shadow: 0 4px 3px rgba(0, 0, 0, 0.4);
+}
+
+.header a {
+  margin: 0 8px;
+  text-decoration: none;
+}
+.header a:last-child {
+  margin-right: 0;
+}
+
+.header a:first-child {
+  margin-left: 0;
+}
+
+.header a:hover {
+  text-decoration: underline;
+}
+
+
 /* <-- Styles for MaterialUI TextField --> */
 .child__text-field label {
   color: white;
