@@ -5,43 +5,32 @@ import Chat from '../Chat/Chat'
 import Home from '../Home'
 import Chats from '../Chats/Chats'
 import Profile from '../Profile/Profile'
+import HomeContainer from '../Home/HomeContainer'
 
-export default function Router(props) {
+export default function Router() {
     return (
         <Switch>
             <Route
                 path="/"
                 exact
                 render={() => (
-                    <Home
-                        chats={props.chats}
-                        currentChat={props.currentChat}
-                        onCurrentChatChange={props.onCurrentChatChange}
-                    />
+                    <React.Fragment>
+                        <p>Container</p>
+                        <HomeContainer />
+
+                        <p>Component</p>
+                        <Home
+                            age={12}
+                            name={'Alice'}
+                            onChangeProfileName={(name) => console.log(name)}
+                        />
+                    </React.Fragment>
                 )}
             />
 
-            <Route
-                exact
-                path="/chats"
-                render={() => (
-                    <Chats
-                        chats={props.chats}
-                        currentChat={props.currentChat}
-                        onCurrentChatChange={props.onCurrentChatChange}
-                        getIsChatExists={props.getIsChatExists}
-                        onAddChat={props.onAddChat}
-                        onRemoveChat={props.onRemoveChat}
-                    />
-                )}
-            />
+            <Route exact path="/chats" component={Chats} />
 
-            <Route
-                path="/chats/:chatId"
-                render={() => {
-                    return <Chat getIsChatExists={props.getIsChatExists} />
-                }}
-            />
+            <Route path="/chats/:chatId" component={Chat} />
 
             <Route path="/profile">
                 <Profile />
