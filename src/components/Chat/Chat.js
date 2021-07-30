@@ -2,51 +2,45 @@ import React from 'react'
 import { Redirect, useParams } from 'react-router'
 import Message from '../Message/Message'
 import Input from '../Input/Input'
-import usePrevious from '../../hooks/usePrevious'
 import { AUTHORS } from '../App/constants'
+import { useDispatch, useSelector } from 'react-redux'
+import { addMessage } from '../../actions/messages'
+import { useIsChatExists } from '../../hooks/useIsChatExists'
 
 const Chat = (props) => {
-    const { getIsChatExists } = props
     const { chatId } = useParams()
 
-    const [messageList, setMessageList] = React.useState([])
+    const messageList = useSelector((state) => state.messages[chatId] || [])
+    const dispatch = useDispatch()
 
-    const timer = React.useRef(null)
-    const prevMessageList = usePrevious(messageList)
-
-    React.useEffect(() => {
-        if (
-            prevMessageList?.length < messageList.length &&
-            messageList[messageList.length - 1].author !== AUTHORS.BOT
-        ) {
-            timer.current = setTimeout(
-                () =>
-                    setMessageList((currentMessageList) => [
-                        ...currentMessageList,
-                        { author: AUTHORS.BOT, text: 'Привет' },
-                    ]),
-                1500
-            )
-        }
-    }, [messageList, prevMessageList])
-
-    React.useEffect(() => {
-        return () => {
-            clearTimeout(timer.current)
-        }
-    }, [])
+    // TODO: этот кусок переедет в редакс в рамках 7го урока
+    // React.useEffect(() => {
+    //     if (
+    //         prevMessageList?.length < messageList.length &&
+    //         messageList[messageList.length - 1].author !== AUTHORS.BOT
+    //     ) {
+    //         timer.current = setTimeout(
+    //             () =>
+    //                 setMessageList((currentMessageList) => [
+    //                     ...currentMessageList,
+    //                     { author: AUTHORS.BOT, text: 'Привет' },
+    //                 ]),
+    //             1500
+    //         )
+    //     }
+    // }, [messageList, prevMessageList])
 
     const handleMessageSubmit = (newMessageText) => {
-        setMessageList((currentMessageList) => [
-            ...currentMessageList,
-            { author: AUTHORS.ME, text: newMessageText },
-        ])
+        dispatch(
+            addMessage(chatId, {
+                id: `message${Date.now()}`,
+                author: AUTHORS.ME,
+                text: newMessageText,
+            })
+        )
     }
 
-    const isChatExists = React.useMemo(
-        () => getIsChatExists(chatId),
-        [getIsChatExists, chatId]
-    )
+    const isChatExists = useIsChatExists({ chatId })
 
     if (!isChatExists) {
         return <Redirect to="/chats" />
@@ -56,9 +50,9 @@ const Chat = (props) => {
         <div className="chat">
             {messageList.length ? (
                 <div className="bordered">
-                    {messageList.map((message, index) => (
+                    {messageList.map((message) => (
                         <Message
-                            key={index}
+                            key={message.id}
                             text={message.text}
                             author={message.author}
                         />
