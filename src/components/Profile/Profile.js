@@ -2,7 +2,10 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import { changeIsOnline, changeIsOnlineWithThunk } from '../../actions/profile'
+import {
+    /*changeIsOnline, */ changeIsOnlineWithThunk,
+} from '../../actions/profile'
+import ProfileInfo from '../ProfileInfo'
 
 export default function Profile(props) {
     const dispatch = useDispatch()
@@ -15,14 +18,7 @@ export default function Profile(props) {
     return (
         <div>
             <p>Profile page</p>
-            <p>
-                <b>Name: </b>
-                {name}
-            </p>
-            <p>
-                <b>Age: </b>
-                {age}
-            </p>
+            <ProfileInfo age={age} name={name} />
 
             <FormControlLabel
                 control={

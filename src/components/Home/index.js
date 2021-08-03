@@ -1,5 +1,6 @@
 import React from 'react'
 import Input from '../Input/Input'
+import ProfileInfo from '../ProfileInfo'
 
 export default function Home(props) {
     const { age = 0, name = 'Unknown', onChangeProfileName } = props
@@ -11,14 +12,7 @@ export default function Home(props) {
     return (
         <div className="app app__content app__content_row">
             <div className="bordered">
-                <p>
-                    <b>Name: </b>
-                    {name}
-                </p>
-                <p>
-                    <b>Age: </b>
-                    {age}
-                </p>
+                <ProfileInfo name={name} age={age} />
             </div>
 
             <Input

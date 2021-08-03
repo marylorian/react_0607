@@ -1,4 +1,3 @@
-import { AUTHORS } from '../components/App/constants'
 import { ADD_MESSAGE } from '../actions/messages'
 
 const initialState = {
