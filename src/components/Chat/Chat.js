@@ -4,7 +4,10 @@ import Message from '../Message/Message'
 import Input from '../Input/Input'
 import { AUTHORS } from '../App/constants'
 import { useDispatch, useSelector } from 'react-redux'
-import { sendMessageToBot } from '../../actions/messages'
+import {
+    sendMessageToBot,
+    subscribeOnMessagesChangings,
+} from '../../actions/messages'
 import { useIsChatExists } from '../../hooks/useIsChatExists'
 
 const Chat = (props) => {
@@ -12,6 +15,10 @@ const Chat = (props) => {
 
     const messageList = useSelector((state) => state.messages[chatId] || [])
     const dispatch = useDispatch()
+
+    React.useEffect(() => {
+        dispatch(subscribeOnMessagesChangings(chatId))
+    }, [])
 
     const handleMessageSubmit = (newMessageText) => {
         dispatch(

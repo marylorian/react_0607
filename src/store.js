@@ -10,6 +10,7 @@ import newsReducer from './reducers/newss'
 const persistConfig = {
     key: 'root',
     storage,
+    blacklist: 'messages',
 }
 
 const rootReducer = combineReducers({
