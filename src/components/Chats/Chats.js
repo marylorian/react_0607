@@ -7,7 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import Input from '../Input/Input'
 import './styles.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { addChat, removeChat } from '../../actions/chats'
+import {addChatToDatabase, removeChatFromDatabase, subscribeChatsChangings} from '../../actions/chats'
 
 export default function Chats() {
     const history = useHistory()
@@ -15,16 +15,20 @@ export default function Chats() {
     const chats = useSelector((state) => state.chats)
     const dispatch = useDispatch()
 
+    React.useEffect(() => {
+        dispatch(subscribeChatsChangings())
+    }, [])
+
     const handleChatLinkClick = (chat) => {
         history.push(`/chats/${chat.id}`)
     }
 
     const handleAddChat = (name) => {
-        dispatch(addChat(`chat${Date.now()}`, name))
+        dispatch(addChatToDatabase(`chat${Date.now()}`, name))
     }
 
     const handleRemoveChat = (chatId) => {
-        dispatch(removeChat(chatId))
+        dispatch(removeChatFromDatabase(chatId))
     }
 
     return (

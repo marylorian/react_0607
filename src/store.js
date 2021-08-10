@@ -5,12 +5,12 @@ import storage from 'redux-persist/lib/storage'
 import profileReducer from './reducers/profile'
 import chatsReducer from './reducers/chats'
 import messagesReducer from './reducers/messages'
-import newsReducer from './reducers/newss'
+import newsReducer from './reducers/news'
 
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: 'messages',
+    blacklist: ['messages', 'chats'],
 }
 
 const rootReducer = combineReducers({
