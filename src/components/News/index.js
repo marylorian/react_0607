@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
-import { NEWS_REQUEST_STATUS } from '../../reducers/newss'
+import { NEWS_REQUEST_STATUS } from '../../reducers/news'
 import { fetchNews, fetchNewsByAxios, setNewsList } from '../../actions/news'
 
 export default function News(props) {

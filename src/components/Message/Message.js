@@ -7,8 +7,6 @@ function Message(props) {
     return (
         <p id={nick}>
             {props.author}: {props.text}
-            <br />
-            {render({ className: 'message__postscriptum' })}
         </p>
     )
 }

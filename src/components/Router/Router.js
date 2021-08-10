@@ -9,6 +9,7 @@ import HomeContainer from '../Home/HomeContainer'
 import News from '../News'
 import Login from '../Login'
 import { useSelector } from 'react-redux'
+import OptimisationExample from "../OptimisationExample/OptimisationExample";
 
 const PrivateRoute = (props) => {
     const isAuthed = useSelector((state) => state.profile.isAuthed)
@@ -48,6 +49,8 @@ export default function Router() {
             <Route path="/login" component={Login} />
 
             <Route path="/news" component={News} />
+
+            <Route path="/optimisation" render={() => <OptimisationExample/>}/>
 
             <Route>
                 <p>404: not found</p>

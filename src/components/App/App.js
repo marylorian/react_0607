@@ -30,6 +30,7 @@ function App() {
                 <Link to="/chats">Chats</Link>
                 <Link to="/profile">Profile</Link>
                 <Link to="/news">News</Link>
+                <Link to="/optimisation">Optimisation</Link>
                 <Link to="/login">Login</Link>
                 <a href="/" onClick={handleSignOut}>
                     Sign out
